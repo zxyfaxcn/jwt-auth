@@ -1,0 +1,61 @@
+{
+  "name": "zxyfaxcn/jwt-auth",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "php",
+    "hyperf"
+  ],
+  "authors": [
+    {
+      "name": "hyperf-jwt-auth",
+      "homepage": "https://github.com/zxyfaxcn/jwt-auth",
+      "role": "Developer"
+    }
+  ],
+  "description": "hyperf-jwt 优化版",
+  "autoload": {
+    "psr-4": {
+      "JwtAuth\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "HyperfTest\\": "tests"
+    }
+  },
+  "require": {
+    "php": ">=7.2",
+    "ext-swoole": ">=4.5",
+    "hyperf/config": "~2.0.0",
+    "hyperf/utils": "~2.0.0",
+    "hyperf/framework": "~2.0.0",
+    "hyperf/di": "~2.0.0",
+    "ext-json": "*",
+    "ext-redis": "*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.14",
+    "phpstan/phpstan": "^0.10.5",
+    "swoft/swoole-ide-helper": "dev-master"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "scripts": {
+    "test": "co-phpunit -c phpunit.xml --colors=always",
+    "analyze": "phpstan analyse --memory-limit 300M -l 0 ./src",
+    "cs-fix": "php-cs-fixer fix $1"
+  },
+  "extra": {
+    "hyperf": {
+      "config": "JwtAuth\\ConfigProvider"
+    }
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://mirrors.aliyun.com/composer/"
+    }
+  }
+}
