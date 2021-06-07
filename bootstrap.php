@@ -10,4 +10,4 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf-cloud/hyperf/blob/master/LICENSE
  */
 
-require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
+require_once dirname(__FILE__, 2) . '/vendor/autoload.php';

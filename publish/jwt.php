@@ -29,7 +29,7 @@ return [
     # refresh_token过期时间，单位为秒 默认15天
     'refresh_ttl' => env('JWT_TTL', 3600 * 24 * 15),
 
-    # jwt的hearder加密算法  目前仅支持对称加密
+    # jwt的header加密算法  目前仅支持对称加密
     'alg' => env('JWT_ALG', 'HS256'),
 
     # Redis缓存前缀

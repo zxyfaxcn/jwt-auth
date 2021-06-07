@@ -1,6 +1,6 @@
 <?php
 
-use Hyperf\Utils\Context;
+declare(strict_types=1);
 
 /**
  * 下划线 转 驼峰

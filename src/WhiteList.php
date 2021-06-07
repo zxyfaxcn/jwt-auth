@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JwtAuth;
 
 use Hyperf\Config\Annotation\Value;
@@ -33,44 +35,43 @@ class WhiteList extends AbstractAnnotation
     protected $redis;
 
     /**
-     * 是否有效已经加入黑名单
+     * 是否有效已经加入白名单
      * @param array $payload
      * @return bool
      */
     public function effective(array $payload)
     {
         switch (true) {
-            case ($this->loginType == 'mpop'):
+            case ($this->loginType === 'mpop'):
                 return true;
-            case ($this->loginType == 'sso'):
+            case ($this->loginType === 'sso'):
                 $val = $this->redis->get($this->cache_prefix . $payload['scope'] . ":" . $payload['aud']);
-                // 这里为什么要大于等于0，因为在刷新token时，缓存时间跟签发时间可能一致，详细请看刷新token方法
-                return $payload['jti'] == $val;
+                return $payload['jti'] === $val;
             default:
                 return false;
         }
     }
 
     /**
-     * token 失效
+     * 添加白名单
      * @param $uid
      * @param $version
      * @param string $type
      * @return bool
      */
-    public function add($uid, $version, $type = Jwt::SCOPE_TOKEN)
+    public function add($uid, $type, $version, $ttl)
     {
-        return $this->redis->set($this->cache_prefix . $type . ":" . $uid, $version);
+        return $this->redis->setex($this->cache_prefix . $type . ":" . $uid, $ttl, $version);
     }
 
     /**
-     * token 失效
+     * 移出白名单, 强制T出登录
      * @param $uid
      * @param string $type
      * @return bool
      */
     public function remove($uid, $type = Jwt::SCOPE_TOKEN)
     {
-        return $this->redis->set($this->cache_prefix . $type . ":" . $uid, 0, 7200);
+        return $this->redis->del($this->cache_prefix . $type . ":" . $uid);
     }
 }
