@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace JwtAuth;
 
 use Hyperf\Config\Annotation\Value;
-use Hyperf\Di\Annotation\AbstractAnnotation;
 use Hyperf\Di\Annotation\Inject;
 
-class WhiteList extends AbstractAnnotation
+class WhiteList
 {
     /**
      * @Value("jwt.login_type")
