@@ -27,10 +27,10 @@
   "require": {
     "php": ">=7.2",
     "ext-swoole": ">=4.5",
-    "hyperf/config": "^2.0",
-    "hyperf/utils": "^2.0",
-    "hyperf/framework": "^2.0",
-    "hyperf/di": "^2.0",
+    "hyperf/config": "^2.0|^3.0",
+    "hyperf/utils": "^2.0|^3.0",
+    "hyperf/framework": "^2.0|^3.0",
+    "hyperf/di": "^2.0|^3.0",
     "ext-json": "*",
     "ext-redis": "*"
   },
