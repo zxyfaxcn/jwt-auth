@@ -26,18 +26,16 @@
   },
   "require": {
     "php": ">=7.2",
-    "ext-swoole": ">=4.5",
+    "ext-json": "*",
+    "ext-redis": "*",
     "hyperf/config": "^2.0|^3.0",
     "hyperf/utils": "^2.0|^3.0",
     "hyperf/framework": "^2.0|^3.0",
-    "hyperf/di": "^2.0|^3.0",
-    "ext-json": "*",
-    "ext-redis": "*"
+    "hyperf/di": "^2.0|^3.0"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^2.14",
-    "phpstan/phpstan": "^0.10.5",
-    "swoft/swoole-ide-helper": "dev-master"
+    "phpstan/phpstan": "^0.10.5"
   },
   "config": {
     "sort-packages": true
