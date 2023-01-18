@@ -6,70 +6,49 @@ namespace JwtAuth;
 
 use Hyperf\Config\Annotation\Value;
 use Hyperf\Di\Annotation\Inject;
+use Hyperf\Redis\Redis;
 
 class WhiteList
 {
-    /**
-     * @Value("jwt.login_type")
-     * @var string
-     */
-    protected $loginType;
+    #[Value("jwt.login_type")]
+    protected string $loginType;
 
-    /**
-     * @Value("jwt.sso_key")
-     * @var string
-     */
-    protected $ssoKey;
+    #[Value("jwt.sso_key")]
+    protected string $ssoKey;
 
-    /**
-     * @Value("jwt.cache_prefix")
-     * @var string
-     */
-    private $cache_prefix;
+    #[Value("jwt.cache_prefix")]
+    private string $cache_prefix;
 
-    /**
-     * @Inject()
-     * @var \Redis
-     */
-    protected $redis;
+    #[Inject]
+    protected Redis $redis;
 
     /**
      * 是否有效已经加入白名单
-     * @param array $payload
-     * @return bool
      */
-    public function effective(array $payload)
+    public function effective(array $payload): bool
     {
-        switch (true) {
-            case ($this->loginType === 'mpop'):
-                return true;
-            case ($this->loginType === 'sso'):
-                $val = $this->redis->get($this->cache_prefix . $payload['scope'] . ":" . $payload['aud']);
-                return $payload['jti'] === $val;
-            default:
-                return false;
+        if ($this->loginType === JWT::LOGIN_TYPE_MPOP) {
+            return true;
         }
+        if ($this->loginType === JWT::LOGIN_TYPE_SSO) {
+            $val = $this->redis->get($this->cache_prefix . $payload['scope'] . ":" . $payload['aud']);
+            return $payload['jti'] === $val;
+        }
+        return false;
     }
 
     /**
      * 添加白名单
-     * @param $uid
-     * @param $version
-     * @param string $type
-     * @return bool
      */
-    public function add($uid, $type, $version, $ttl)
+    public function add($uid, string $type, $version, $ttl): bool
     {
         return $this->redis->setex($this->cache_prefix . $type . ":" . $uid, $ttl, $version);
     }
 
     /**
      * 移出白名单, 强制T出登录
-     * @param $uid
-     * @param string $type
-     * @return bool
      */
-    public function remove($uid, $type = Jwt::SCOPE_TOKEN)
+    public function remove($uid, $type = Jwt::SCOPE_TOKEN): bool
     {
         return $this->redis->del($this->cache_prefix . $type . ":" . $uid);
     }

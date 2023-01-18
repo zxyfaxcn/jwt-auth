@@ -6,7 +6,6 @@ namespace JwtAuth\Command;
 
 use Hyperf\Command\Annotation\Command;
 use Hyperf\Command\Command as HyperfCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
@@ -16,10 +15,8 @@ class JwtCommand extends HyperfCommand
 {
     /**
      * 执行的命令行
-     *
-     * @var string
      */
-    protected $name = 'jwt:publish';
+    protected ?string $name = 'jwt:publish';
 
     public function handle()
     {
@@ -31,14 +28,7 @@ class JwtCommand extends HyperfCommand
         }
     }
 
-//    protected function getArguments()
-//    {
-//        return [
-//            ['name', InputArgument::OPTIONAL, 'Publish the configuration for jwt-auth']
-//        ];
-//    }
-
-    protected function getOptions()
+    protected function getOptions(): array
     {
         return [
             ['config', null, InputOption::VALUE_NONE, 'Publish the configuration for jwt-auth']
@@ -47,10 +37,11 @@ class JwtCommand extends HyperfCommand
 
     /**
      * 复制文件到指定的目录中
+     *
      * @param $copySource
      * @param $toSource
      */
-    protected function copySource($copySource, $toSource)
+    protected function copySource($copySource, $toSource): void
     {
         copy($copySource, $toSource);
     }

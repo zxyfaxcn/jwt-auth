@@ -47,38 +47,38 @@ class IndexController extends Controller
     # 模拟登录,获取token
     public function login(Jwt $jwt)
     {
-           #用法1 对象模式
+        #用法1: 传入对象
 
-            $jwtData = new JwtBuilder();
-            $jwtData->setIssuer('api');
-            #... 设置更多token属性
+        $jwtData = new JwtBuilder();
+        $jwtData->setIssuer('api');
+        $jwtData->setAudience('xxx');
+        #... 设置更多token属性
 
-            #... 设置data数据
-            $jwtData->setJwtData(['uid' => 123,'type' => 1111,'group' => 1]);
+        #... 设置data数据
+        $jwtData->setJwtData(['uid' => 123, 'type' => 1111, 'group' => 1]);
 
-            #返回 JwtBuilder对象
-            $tokenObj = $jwt->createToken($jwtData);
+        #返回 JwtBuilder对象
+        $tokenObj = $jwt->createToken($jwtData);
 
-            #获取生成的token 
-            $tokenObj->getToken();  
+        #获取生成的token 
+        $tokenObj->getToken();  
 
 
+        #用法2: 传入数组 
 
-           #用法2 传入数组 
-           
-            #返回 JwtBuilder对象
-            $tokenObj = $jwt->createToken(['uid' => $id,'type' => $type,'group' => $group]);
+        #初始化JwtBuilder对象
+        $tokenObj = $jwt->createToken(['uid' => $id, 'type' => $type, 'group' => $group]);
 
-            #获取生成的token 
-            $tokenObj->getToken();  
+        #获取生成的token 
+        $tokenObj->getToken();  
 
-            #获取刷新token 传入数组  第一个参数为数据，第二个参数为类型，默认是access 可以定义为 refersh 或者其他类型自定义
-            #返回 JwtBuilder对象  
-            $tokenObj = $jwt->createToken(['uid' => $id,'type' => $type,'group' => $group],Jwt::SCOPE_REFRESH);
+        #获取刷新token 传入数组  第一个参数为数据，第二个参数为类型，默认是access 可以定义为 refersh 或者其他类型自定义
+        #返回 JwtBuilder对象  
+        $tokenObj = $jwt->createToken(['uid' => $id, 'type' => $type, 'group' => $group], Jwt::SCOPE_REFRESH);
 
-            #获取生成的token 
-            $tokenObj->getToken();  
-       
+        #获取生成的token 
+        $tokenObj->getToken();  
+
         return $tokenObj->getToken();
     }
 }

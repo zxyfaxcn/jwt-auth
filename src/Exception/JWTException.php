@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace JwtAuth\Exception;
 
-class JWTException extends \RuntimeException
+use RuntimeException;
+
+class JWTException extends RuntimeException
 {
 }

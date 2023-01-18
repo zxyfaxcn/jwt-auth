@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace JwtAuth;
 
-class JwtBuilder implements \ArrayAccess
+use ArrayAccess;
+
+class JwtBuilder implements ArrayAccess
 {
-    private $container = [];
+    private array $container;
 
-    protected $token = '';
-    protected $refresh_token = '';
+    protected string $token = '';
+    protected string $refresh_token = '';
 
-    public function __construct($container = [])
+    public function __construct(array $container = [])
     {
         $this->container = $container;
     }
@@ -59,7 +61,7 @@ class JwtBuilder implements \ArrayAccess
         unset($this->container[$key]);
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -68,22 +70,22 @@ class JwtBuilder implements \ArrayAccess
         }
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
 
     public function offsetGet($offset)
     {
-        return isset($this->container[$offset]) ? $this->container[$offset] : null;
+        return $this->container[$offset] ?? null;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->container;
     }
@@ -92,7 +94,7 @@ class JwtBuilder implements \ArrayAccess
      * 发行人
      * @return mixed
      */
-    public function getIssuer()
+    public function getIssuer(): mixed
     {
         return $this->container['iss'] ?? '';
     }
@@ -101,7 +103,7 @@ class JwtBuilder implements \ArrayAccess
      * 发行人
      * @param mixed $issuer
      */
-    public function setIssuer($issuer): void
+    public function setIssuer(mixed $issuer): void
     {
         $this->container['iss'] = $issuer;
     }
@@ -110,7 +112,7 @@ class JwtBuilder implements \ArrayAccess
      * jwt所面向的用户
      * @return mixed
      */
-    public function getSubject()
+    public function getSubject(): mixed
     {
         return $this->container['sub'] ?? '';
     }
@@ -118,17 +120,16 @@ class JwtBuilder implements \ArrayAccess
     /**
      * @param mixed $subject
      */
-    public function setSubject($subject): void
+    public function setSubject(mixed $subject): void
     {
         $this->container['sub'] = $subject;
-
     }
 
     /**
      * 接收jwt的一方
      * @return mixed
      */
-    public function getAudience()
+    public function getAudience(): mixed
     {
         return $this->container['aud'] ?? '';
     }
@@ -137,7 +138,7 @@ class JwtBuilder implements \ArrayAccess
      * 接收jwt的一方
      * @param mixed $audience
      */
-    public function setAudience($audience): void
+    public function setAudience(mixed $audience): void
     {
         $this->container['aud'] = $audience;
     }
@@ -146,7 +147,7 @@ class JwtBuilder implements \ArrayAccess
      * jwt的过期时间，这个过期时间必须要大于签发时间
      * @return mixed
      */
-    public function getExpiration()
+    public function getExpiration(): mixed
     {
         return $this->container['exp'] ?? '';
     }
@@ -155,7 +156,7 @@ class JwtBuilder implements \ArrayAccess
      * jwt的过期时间，这个过期时间必须要大于签发时间
      * @param mixed $expiration
      */
-    public function setExpiration($expiration): void
+    public function setExpiration(mixed $expiration): void
     {
         $this->container['exp'] = $expiration;
     }
@@ -164,7 +165,7 @@ class JwtBuilder implements \ArrayAccess
      * 定义在什么时间之前，该jwt都是不可用的.
      * @return mixed
      */
-    public function getNotBefore()
+    public function getNotBefore(): mixed
     {
         return $this->container['nbf'] ?? '';
     }
@@ -173,7 +174,7 @@ class JwtBuilder implements \ArrayAccess
      * 定义在什么时间之前，该jwt都是不可用的.
      * @param mixed $notBefore
      */
-    public function setNotBefore($notBefore): void
+    public function setNotBefore(mixed $notBefore): void
     {
         $this->container['nbf'] = $notBefore;
     }
@@ -182,7 +183,7 @@ class JwtBuilder implements \ArrayAccess
      * jwt的签发时间
      * @return mixed
      */
-    public function getIssuedAt()
+    public function getIssuedAt(): mixed
     {
         return $this->container['iat'] ?? '';
     }
@@ -191,7 +192,7 @@ class JwtBuilder implements \ArrayAccess
      * jwt的签发时间
      * @param mixed $issuedAt
      */
-    public function setIssuedAt($issuedAt): void
+    public function setIssuedAt(mixed $issuedAt): void
     {
         $this->container['iat'] = $issuedAt;
     }
@@ -200,7 +201,7 @@ class JwtBuilder implements \ArrayAccess
      * jwt的唯一身份标识，主要用来作为一次性token,从而回避重放攻击。
      * @return mixed
      */
-    public function getJwtId()
+    public function getJwtId(): mixed
     {
         return $this->container['jti'] ?? '';
     }
@@ -209,7 +210,7 @@ class JwtBuilder implements \ArrayAccess
      * jwt的唯一身份标识，主要用来作为一次性token,从而回避重放攻击。
      * @param mixed $jwtId
      */
-    public function setJwtId($jwtId): void
+    public function setJwtId(mixed $jwtId): void
     {
         $this->container['jti'] = $jwtId;
     }
@@ -218,7 +219,7 @@ class JwtBuilder implements \ArrayAccess
      * 自定义操作类型, SCOPE_TOKEN / SCOPE_REFRESH
      * @return mixed
      */
-    public function getScope()
+    public function getScope(): mixed
     {
         return $this->container['scope'] ?? '';
     }
@@ -235,7 +236,7 @@ class JwtBuilder implements \ArrayAccess
      * 自定义数据（不可以写敏感信息, 会以base64的方式包含在jwt token串中）
      * @return mixed
      */
-    public function getJwtData()
+    public function getJwtData(): mixed
     {
         return $this->container['data'] ?? [];
     }

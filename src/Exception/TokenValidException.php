@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace JwtAuth\Exception;
 
-class TokenValidException extends \RuntimeException
+use RuntimeException;
+
+class TokenValidException extends RuntimeException
 {
 }

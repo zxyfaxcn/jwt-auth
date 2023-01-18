@@ -13,7 +13,7 @@
       "role": "Developer"
     }
   ],
-  "description": "hyperf-jwt 优化版",
+  "description": "hyperf-jwt",
   "autoload": {
     "psr-4": {
       "JwtAuth\\": "src/"
@@ -25,17 +25,18 @@
     }
   },
   "require": {
-    "php": ">=7.2",
+    "php": ">=8.0",
     "ext-json": "*",
     "ext-redis": "*",
-    "hyperf/config": "^2.0|^3.0",
-    "hyperf/utils": "^2.0|^3.0",
-    "hyperf/framework": "^2.0|^3.0",
-    "hyperf/di": "^2.0|^3.0"
+    "hyperf/config": "^3.0",
+    "hyperf/di": "^3.0",
+    "hyperf/framework": "^3.0",
+    "hyperf/redis": "^3.0",
+    "hyperf/utils": "^3.0"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.14",
-    "phpstan/phpstan": "^0.10.5"
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "phpstan/phpstan": "^1.0"
   },
   "config": {
     "sort-packages": true
@@ -48,12 +49,6 @@
   "extra": {
     "hyperf": {
       "config": "JwtAuth\\ConfigProvider"
-    }
-  },
-  "repositories": {
-    "packagist": {
-      "type": "composer",
-      "url": "https://mirrors.aliyun.com/composer/"
     }
   }
 }

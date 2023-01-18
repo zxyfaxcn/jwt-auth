@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace JwtAuth\Exception;
 
-class PermissionDeniedException extends \RuntimeException
+use RuntimeException;
+
+class PermissionDeniedException extends RuntimeException
 {
 }

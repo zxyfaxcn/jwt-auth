@@ -10,7 +10,7 @@ return [
     'sso_key' => 'u',
 
     # 非对称加密使用字符串,请使用自己加密的字符串
-    'secret' => env('JWT_SECRET', 'hyperfjwt'),
+    'secret' => env('JWT_SECRET', 'hyperf-jwt'),
     /*
      * JWT 权限keys
      * 对称算法: HS256, HS384 & HS512 使用 `JWT_SECRET`.
