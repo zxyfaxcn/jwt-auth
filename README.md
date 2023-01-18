@@ -23,7 +23,7 @@ composer require zxyfaxcn/jwt-auth
 
 ##### 2、发布配置
 ```shell
-php bin/hyperf.php jwt:publish --config
+php bin/hyperf.php vendor:publish zxyfaxcn/jwt-auth
 ```
 
 ##### 3、jwt配置
