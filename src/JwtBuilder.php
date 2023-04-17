@@ -80,7 +80,7 @@ class JwtBuilder implements ArrayAccess
         unset($this->container[$offset]);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->container[$offset] ?? null;
     }
